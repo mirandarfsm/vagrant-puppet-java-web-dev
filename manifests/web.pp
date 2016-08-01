@@ -1,3 +1,4 @@
+include oracle_java
 # Update apt repository
 exec { "apt-update":
 	user => root,
@@ -5,8 +6,13 @@ exec { "apt-update":
 	path => "/usr/bin/",
 }
 
-# Installing xfce4 like a User Interface.
-# You can choose other like: LXDE, IceWM, Openbox and etc...
-package { "xfce4":
-	ensure => "latest",
+class { 'oracle_java':
+	version => '8u5',
+	type => 'jdk'
 }
+
+# Installing xfce4 like a User Interface.
+# You can choose other like: xfce4, LXDE, IceWM, Openbox and etc...
+#package { ["xubuntu-desktop","firefox"]:
+#	ensure => "latest",
+#}

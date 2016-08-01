@@ -5,7 +5,12 @@ Vagrant.configure(2) do |config|
   config.vm.box = "hashicorp/precise64"
   config.vm.box_url = "https://atlas.hashicorp.com/hashicorp/boxes/precise64"
 
-  #config.librarian_puppet.puppetfile_dir = "librarian"
+  config.librarian_puppet.puppetfile_dir = "librarian"
+  config.librarian_puppet.use_v1_api = "1"
+  config.librarian_puppet.destructive = false
+
+  #config.r10k.puppet_dir = 'librarian' # the parent directory that contains your module directory and Puppetfile
+  #config.r10k.puppetfile_path = 'librarian/Puppetfile'
 
   # Proxy settings
   #config.proxy.http     = PROXY
@@ -35,7 +40,7 @@ Vagrant.configure(2) do |config|
     # Puppet Settings
     web_config.vm.provision "puppet" do |puppet|
       #puppet.module_path = ["modules"]
-    #  puppet.module_path = ["modules","librarian/modules"]
+      puppet.module_path = ["modules", "librarian/modules"]
       puppet.manifest_file = "web.pp"
     end
   end
