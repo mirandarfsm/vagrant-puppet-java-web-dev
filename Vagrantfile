@@ -2,10 +2,12 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "hashicorp/precise64"
-  config.vm.box_url = "https://atlas.hashicorp.com/hashicorp/boxes/precise64"
+  #config.vm.box = "hashicorp/precise64"
+  #config.vm.box_url = "https://atlas.hashicorp.com/hashicorp/boxes/precise64"  
+  config.vm.box = 'puppetlabs/ubuntu-12.04-64-puppet'
+  
 
-  config.librarian_puppet.puppetfile_dir = "librarian"
+  #config.librarian_puppet.puppetfile_dir = "librarian"
   config.librarian_puppet.use_v1_api = "1"
   config.librarian_puppet.destructive = false
 
@@ -39,9 +41,11 @@ Vagrant.configure(2) do |config|
 
     # Puppet Settings
     web_config.vm.provision "puppet" do |puppet|
-      #puppet.module_path = ["modules"]
-      puppet.module_path = ["modules", "librarian/modules"]
-      puppet.manifest_file = "web.pp"
+      puppet.module_path = ["modules"]
+      #puppet.manifests_path = "manifests"
+      #puppet.manifest_file = "web.pp"
+      puppet.environment_path = "environments"
+      puppet.environment = "web"
     end
   end
 

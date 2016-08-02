@@ -6,3 +6,4 @@ librarian/.tmp/
 librarian/vendor/
 librarian/modules/*
 librarian/Puppetfile.lock
+modules/*
