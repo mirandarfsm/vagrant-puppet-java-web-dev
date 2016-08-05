@@ -6,19 +6,17 @@ Vagrant.configure(2) do |config|
   #config.vm.box_url = "https://atlas.hashicorp.com/hashicorp/boxes/precise64"  
   config.vm.box = 'puppetlabs/ubuntu-12.04-64-puppet'
   
-
-  #config.librarian_puppet.puppetfile_dir = "librarian"
+  # Librarian Puppet settings 
+  # Install it: vagrant plugin install vagrant-librarian-puppet
   config.librarian_puppet.use_v1_api = "1"
   config.librarian_puppet.destructive = false
 
-  #config.r10k.puppet_dir = 'librarian' # the parent directory that contains your module directory and Puppetfile
-  #config.r10k.puppetfile_path = 'librarian/Puppetfile'
-
   # Proxy settings
+  # Install it: vagrant plugin install vagrant-proxyconf
+  #PROXY="" 
   #config.proxy.http     = PROXY
   #config.proxy.https    = PROXY
   #config.proxy.no_proxy = "localhost,127.0.0.1,.intraer,192.168.0.0/16,10.0.0.0/8"
-  #config.memory = "1024"
 
   # Module Web Config
   config.vm.define :web do |web_config|
@@ -37,12 +35,12 @@ Vagrant.configure(2) do |config|
     #web_config.vm.network "forwarded_port", guest: 8080, host: '8080'
 
     # Shared folder
-    #web_config.vm.synced_folder "../", "/home/vagrant/adoc"
+    #web_config.vm.synced_folder "../", "/home/vagrant/project"
 
     # Puppet Settings
     web_config.vm.provision "puppet" do |puppet|
       puppet.module_path = ["modules"]
-      #puppet.manifests_path = "manifests"
+      #puppet.manifests_path = "environments/web/manifests"
       #puppet.manifest_file = "web.pp"
       puppet.environment_path = "environments"
       puppet.environment = "web"
@@ -55,8 +53,11 @@ Vagrant.configure(2) do |config|
     #db_config.vm.network "forwarded_port", guest: 5432, host: 5432
     
     #db_config.vm.provision "puppet" do |puppet|
-    #  puppet.module_path = ["modules","librarian/modules"]
-    #  puppet.manifest_file = "db.pp"
+      #puppet.module_path = ["modules"]
+      #puppet.manifests_path = "environments/db/manifests"
+      #puppet.manifest_file = "db.pp"
+      #puppet.environment_path = "environments"
+      #puppet.environment = "db"
     #end
   #end
 
