@@ -4,8 +4,13 @@ forge 'https://forgeapi.puppetlabs.com'
 # Run it: librarian-puppet config tmp "C:/libtmp" --local
 
 #mod "puppetlabs/apt"
-#mod "aco/oracle_java"
+
+mod "puppet/archive"
+#mod "puppetlabs/java"
+mod "aco/oracle_java"
+
 #mod "mjanser/eclipse"
 #mod "unibet/maven"
 #puppetlabs/postgresql
 #aco/tomcat
+#maestrodev/wget

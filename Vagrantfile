@@ -2,14 +2,16 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  #config.vm.box = "hashicorp/precise64"
-  #config.vm.box_url = "https://atlas.hashicorp.com/hashicorp/boxes/precise64"  
-  config.vm.box = 'puppetlabs/ubuntu-12.04-64-puppet'
+  #config.vm.box = "puppetlabs/ubuntu-12.04-64-puppet"
+  config.vm.box = "puppetlabs/debian-8.2-64-puppet"
+  #config.vm.box = "puppetlabs/ubuntu-16.04-64-puppet"
+  #config.vm.box = "puppetlabs/centos-7.0-64-puppet"
   
   # Librarian Puppet settings 
   # Install it: vagrant plugin install vagrant-librarian-puppet
   config.librarian_puppet.use_v1_api = "1"
-  config.librarian_puppet.destructive = false
+  config.librarian_puppet.destructive = true
+  config.librarian_puppet.tmp = "D:/libtmp"
 
   # Proxy settings
   # Install it: vagrant plugin install vagrant-proxyconf
@@ -17,6 +19,9 @@ Vagrant.configure(2) do |config|
   #config.proxy.http     = PROXY
   #config.proxy.https    = PROXY
   #config.proxy.no_proxy = "localhost,127.0.0.1,.intraer,192.168.0.0/16,10.0.0.0/8"
+
+  config.vm.provision "shell", inline: "apt-get update --fix-missing"
+
 
   # Module Web Config
   config.vm.define :web do |web_config|
@@ -39,11 +44,12 @@ Vagrant.configure(2) do |config|
 
     # Puppet Settings
     web_config.vm.provision "puppet" do |puppet|
-      puppet.module_path = ["modules"]
-      #puppet.manifests_path = "environments/web/manifests"
-      #puppet.manifest_file = "web.pp"
+      puppet.module_path = "modules"
+      puppet.manifests_path = "environments/web/manifests"
+      puppet.manifest_file = "web1.pp"
       puppet.environment_path = "environments"
       puppet.environment = "web"
+      puppet.options = "--verbose"
     end
   end
 
