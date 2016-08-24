@@ -11,7 +11,7 @@ Vagrant.configure(2) do |config|
   # Install it: vagrant plugin install vagrant-librarian-puppet
   config.librarian_puppet.use_v1_api = "1"
   config.librarian_puppet.destructive = true
-  config.librarian_puppet.tmp = "D:/libtmp"
+  #config.librarian_puppet.tmp = "D:/libtmp"
 
   # Proxy settings
   # Install it: vagrant plugin install vagrant-proxyconf
