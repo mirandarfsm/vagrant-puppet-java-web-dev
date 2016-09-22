@@ -12,7 +12,7 @@ exec { "set-java-home":
 	path => "/usr/bin/",
 }
 
-exec { "set-java-home":
+exec { "set-javac-home":
 	command => "update-alternatives --install /usr/bin/javac javac /opt/jdk/bin/javac 1000",
 	path => "/usr/bin/",
 }
@@ -36,7 +36,7 @@ file { "/opt/tomcat":
 	source => "file:///tomcat",
 }
 
-# eclipse
+# Eclipse
 file { "/opt/eclipse":
 	owner => vagrant,
 	mode => 0755, 
@@ -51,3 +51,8 @@ file { "/home/vagrant/.local/share/applications/eclipse.desktop":
 }
 
 # Graphical User Interface
+# Installing xfce4 like a User Interface.
+# You can choose other like: xfce4, LXDE, IceWM, Openbox and etc...
+package { "xfce4":
+	ensure => "latest",
+}
